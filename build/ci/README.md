@@ -93,25 +93,29 @@ a table to the job summary and always tears its container down.
 
 The runner only needs `podman`, `python3` with PyYAML and network access (it
 creates its own virtualenv with `ansible-core` and installs the required
-collections):
+collections).  The controller virtualenv is built from the newest of
+`python3.14`, `python3.13`, `python3.12`, `python3.11` and `python3.10` found in
+`PATH`, or from `$CI_PYTHON`; a platform that asks for `ansible-core` 2.22
+(Fedora 45) needs at least Python 3.13 for the controller, so the GitHub
+workflow installs one with `actions/setup-python`:
 
 ```bash
 # list platforms / playbooks
-./build/ci/ci-run.py list
-./build/ci/ci-run.py tests
+python3 build/ci/ci-run.py list
+python3 build/ci/ci-run.py tests
 
 # full run for one platform
-./build/ci/ci-run.py reproduce fedora45
+python3 build/ci/ci-run.py reproduce fedora45
 
 # just the pr group
-./build/ci/ci-run.py reproduce --group pr
+python3 build/ci/ci-run.py reproduce --group pr
 
 # a single playbook, then a shell inside the still-running container
-./build/ci/ci-run.py test fedora45 --test tests_verify_basic.yml
-./build/ci/ci-run.py shell fedora45
+python3 build/ci/ci-run.py test fedora45 --test tests_verify_basic.yml
+python3 build/ci/ci-run.py shell fedora45
 
 # clean up
-./build/ci/ci-run.py destroy fedora45
+python3 build/ci/ci-run.py destroy fedora45
 ```
 
 Because the containers are privileged and must be reachable over SSH, the
@@ -161,7 +165,7 @@ skip:
   tests_verify_mssql.yml: SQL Server is not available for this distribution
 ```
 
-Then check it locally with `./build/ci/ci-run.py reproduce <id>`.
+Then check it locally with `python3 build/ci/ci-run.py reproduce <id>`.
 
 ## Skipping a test
 

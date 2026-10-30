@@ -1,5 +1,8 @@
-#!/usr/bin/env python3
 # SPDX-License-Identifier: MIT
+#
+# Run with "python3 build/ci/ci-run.py ...".  The file intentionally has no
+# shebang: ansible-test only accepts "#!/usr/bin/env python" in a collection,
+# which does not exist on every supported host.
 """Run the ansible-pcp integration testsuite in systemd-enabled containers.
 
 The runner mirrors what the downstream ``ansible-pcp`` package test does: it
@@ -273,6 +276,7 @@ class Runner:
         while time.time() < deadline:
             result = subprocess.run(
                 ["ssh", *SSH_OPTS, "-i", str(self.key), f"root@{ip}", "true"],
+                check=False,
                 stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
             )
             if result.returncode == 0:

@@ -98,17 +98,27 @@ jobs:
             -f description="Integration tests are running" \
             -f target_url="${TARGET_URL}"
 
+      - name: Set up the Ansible controller Python
+        # ansible-core 2.22 (needed for targets such as Fedora 45 with
+        # Python 3.15) requires Python 3.13 or newer, while the python3 of the
+        # hosted runner is 3.12.
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
       - name: Install test dependencies
         run: |
           set -euo pipefail
           sudo apt-get update -qq
           sudo apt-get install -y -qq podman python3-venv python3-yaml >/dev/null
+          # PyYAML for the controller interpreter set up above
+          python3 -m pip install -q pyyaml
 
       - name: Set up the container
-        run: build/ci/ci-run.py setup '${{ matrix.platform }}'
+        run: python3 build/ci/ci-run.py setup '${{ matrix.platform }}'
 
       - name: Run the testsuite
-        run: build/ci/ci-run.py test '${{ matrix.platform }}'
+        run: python3 build/ci/ci-run.py test '${{ matrix.platform }}'
 
       - name: Upload test artifacts
         if: always()
@@ -141,4 +151,4 @@ jobs:
 
       - name: Tear down the container
         if: always()
-        run: build/ci/ci-run.py destroy '${{ matrix.platform }}'
+        run: python3 build/ci/ci-run.py destroy '${{ matrix.platform }}'
