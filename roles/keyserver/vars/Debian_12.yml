@@ -4,6 +4,8 @@
 
 # Debian 12 still ships Redis instead of Valkey.
 __keyserver_name: redis
+# systemctl enable refuses the redis.service alias, use the unit name.
+__keyserver_service_name: redis-server
 __keyserver_conf_path: /etc/redis
 __keyserver_conf_file: redis.conf
 
