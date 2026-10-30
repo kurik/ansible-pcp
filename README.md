@@ -70,8 +70,7 @@ The collection is arranged as follows:
   A role that extends the core PCP role, exporting metrics from
   PCP into Apache Spark for further analysis.
 
-
-## Instructions for creating an ansible-pcp release:
+## Instructions for creating an ansible-pcp release
 
 ### On GitHub
 
@@ -90,6 +89,5 @@ Still in the performancecopilot ansible-pcp repo:
 
 1. Remove the old `*.tar.gz` file if present
 2. `ansible-galaxy collection build`
-3. Navigate to https://galaxy.ansible.com/ui/namespaces/performancecopilot/
+3. Navigate to <https://galaxy.ansible.com/ui/namespaces/performancecopilot/>
 4. Click "upload collection" and upload the `tar.gz` file just created with the `ansible-galaxy collection build` command
-
