@@ -1,6 +1,7 @@
 # Ansible Collection - performancecopilot.metrics
 
 ![CI Testing](https://github.com/performancecopilot/ansible-pcp/workflows/tox/badge.svg)
+![Integration Tests](https://github.com/performancecopilot/ansible-pcp/actions/workflows/ci.yml/badge.svg)
 [![Mailing List](https://img.shields.io/badge/Mailing%20List-pcp-blue.svg)](https://groups.io/g/pcp)
 [![Slack Team](https://img.shields.io/badge/Slack-pcp-blue.svg)](https://h7zo83mvt1.execute-api.us-west-2.amazonaws.com/Express/)
 [![IRC #pcp](https://img.shields.io/badge/IRC-pcp-blue.svg)](https://web.libera.chat/#pcp)
